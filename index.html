@@ -1,0 +1,1564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MY PORTFOLIO</title>
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Your existing CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        
+
+        #money-manager {
+            display: none;
+            padding: 80px 50px;
+            border-top: 1px solid #292E37;
+        }
+
+        #money-manager.active {
+            display: block;
+        }
+
+        .money-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .money-header {
+            margin-bottom: 35px;
+        }
+
+        .money-header h2 {
+            font-size: 48px;
+            color: #F8F2F7;
+            margin-bottom: 7px;
+        }
+
+        .money-header h2 span {
+            color: #FF4F9A;
+        }
+
+        .money-header p {
+            color: #A99CAA;
+            font-size: 15px;
+        }
+
+        .money-date {
+            margin-top: 8px;
+            color: #766B7A;
+            font-size: 13px;
+        }
+
+        .money-card {
+            background: #17121B;
+            border: 1px solid #302535;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .money-card h3 {
+            font-size: 21px;
+            margin-bottom: 20px;
+            color: #F8F2F7;
+        }
+
+        .money-input,
+        .money-select {
+            width: 100%;
+            padding: 14px 15px;
+            margin-bottom: 12px;
+
+            background: #100C14;
+            color: #F8F2F7;
+
+            border: 1px solid #302535;
+            border-radius: 9px;
+
+            outline: none;
+            font-family: Arial, sans-serif;
+        }
+
+        .money-input:focus,
+        .money-select:focus {
+            border-color: #FF4F9A;
+            box-shadow: 0 0 0 3px rgba(255, 79, 154, 0.12);
+        }
+
+        .money-button {
+            padding: 13px 22px;
+
+            background: #FF4F9A;
+            color: #0D0A10;
+
+            border: none;
+            border-radius: 9px;
+
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .money-button:hover {
+            background: #FF2F7D;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 47, 125, 0.3);
+        }
+
+        .money-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .money-summary-card {
+            background: #17121B;
+            border: 1px solid #302535;
+            border-radius: 18px;
+            padding: 23px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .money-summary-card p {
+            color: #A99CAA;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .money-summary-card h3 {
+            font-size: 29px;
+            color: #FF4F9A;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 14px;
+
+            background: #2A202F;
+
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 17px 0;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+
+            background: linear-gradient(
+                90deg,
+                #FF4F9A,
+                #A855F7
+            );
+
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        #moneyStatus {
+            color: #A99CAA;
+            font-size: 14px;
+        }
+
+        .expense-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .expense-form .money-input,
+        .expense-form .money-select {
+            margin-bottom: 0;
+        }
+
+        .expense-list {
+            list-style: none;
+        }
+
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+
+            padding: 17px 0;
+
+            border-bottom: 1px solid #2A202F;
+        }
+
+        .expense-item:last-child {
+            border-bottom: none;
+        }
+
+        .expense-name {
+            font-weight: 600;
+            color: #F8F2F7;
+        }
+
+        .expense-category {
+            color: #766B7A;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .expense-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .expense-amount {
+            color: #FF4F9A;
+            font-weight: bold;
+        }
+
+        .delete-btn {
+            padding: 7px 11px;
+
+            background: transparent;
+
+            color: #A99CAA;
+
+            border: 1px solid #302535;
+            border-radius: 7px;
+
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #241722;
+            color: #FF4F9A;
+            border-color: #FF4F9A;
+        }
+
+        .money-advice {
+            border-left: 4px solid #FF4F9A;
+            background: linear-gradient(
+                135deg,
+                #17121B,
+                #1D1421
+            );
+        }
+
+        .money-advice p {
+            color: #A99CAA;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .money-back {
+            margin-bottom: 30px;
+        }
+
+        .money-back button {
+            padding: 12px 22px;
+            background: transparent;
+            color: #F5F5F5;
+            border: 1px solid #292E37;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .money-back button:hover {
+            border-color: #9CFF2E;
+            color: #9CFF2E;
+        }
+
+        @media (max-width: 700px) {
+
+            #money-manager {
+                padding: 70px 20px;
+            }
+
+            .money-header h2 {
+                font-size: 40px;
+            }
+
+            .money-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .expense-form {
+                grid-template-columns: 1fr;
+            }
+
+            .expense-form .money-button {
+                width: 100%;
+            }
+
+            .expense-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .expense-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .money-card {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    
+
+    <nav>
+        <h1>QAZI <span>/</span> SHIRIN</h1>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h3>COMPUTER ENGINEERING STUDENT</h3>
+
+            <h1>
+                BUILDING
+                <span>MYNEXT</span>
+                VERSION.
+            </h1>
+
+            <p>
+                Hi, I'm Shirin Qazi - a Computer Engineering student
+                interested in web development, programming and creative
+                technology.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#projects">
+                    View Projects
+                </a>
+
+                <a href="#contact">
+                    Contact Me
+                </a>
+
+            </div>
+
+        </div>
+
+
+        
+        <div class="hero-image">
+
+            <img
+                src="https://i.pinimg.com/736x/9b/88/ce/9b88cea6ce0630c9355da2c1ab793534.jpg"
+                alt="Shirin Qazi">
+
+        </div>
+
+    </section>
+
+
+    
+
+    <section class="about" id="about">
+
+        <h2>About Me</h2>
+
+        <p>
+            I am a Computer Engineering student passionate about
+            technology, programming and web development.
+        </p>
+
+        <p>
+            I enjoy creating useful websites and applications while
+            continuously improving my technical and creative skills.
+        </p>
+
+    </section>
+
+
+    
+    <section class="skills" id="skills">
+
+        <div class="skills-heading">
+
+            
+
+            <h2>My Skills</h2>
+
+            <span>
+                Technologies and tools that I am learning and using.
+            </span>
+
+        </div>
+
+
+        <div class="skills-container">
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    HTML
+                </div>
+
+                <h3>Web Development</h3>
+
+                <p>
+                    Building responsive and interactive websites
+                    using modern web technologies.
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    JAVA
+                </div>
+
+                <h3>Programming</h3>
+
+                <p>
+                    Learning programming fundamentals and
+                    object-oriented programming.
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>Java</span>
+                    <span>C</span>
+                    <span>Python</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    XL
+                </div>
+
+                <h3>Microsoft Excel</h3>
+
+                <p>
+                    Working with spreadsheets, formulas,
+                    functions and data organization.
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>Excel</span>
+                    <span>Functions</span>
+                    <span>Data</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    UI
+                </div>
+
+                <h3>Creative Design</h3>
+
+                <p>
+                    Creating clean visual designs and digital
+                    experiences using design tools.
+                </p>
+
+                <div class="skill-tags">
+
+                    <span>Canva</span>
+                    <span>UI Design</span>
+                    <span>Figma</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    
+
+    <section class="projects" id="projects">
+
+        <h2>Projects</h2>
+
+
+        <div class="project-card">
+
+            <div class="project-info">
+
+                <p class="project-number">
+                    PROJECT 01
+                </p>
+
+                <h3>
+                    Money Manager
+                </h3>
+
+                <p>
+                    A simple money management application that helps
+                    users track pocket money, expenses, spending
+                    progress and remaining balance.
+                </p>
+
+                <div class="project-tech">
+
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>LocalStorage</span>
+
+                </div>
+
+                
+
+                <a
+                    href="#money-manager"
+                    class="project-btn"
+                    onclick="openMoneyManager()">
+
+                    View Project ↗
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="project-card">
+
+            <div class="project-info">
+
+                <p class="project-number">
+                    PROJECT 02
+                </p>
+
+                <h3>
+                    AUREX AI
+                </h3>
+
+                <p>
+                    An AI-powered smartwatch concept designed to
+                    understand emotions, provide safety alerts and
+                    support everyday wellbeing.
+                </p>
+
+                <div class="project-tech">
+
+                    <span>AI</span>
+                    <span>Smartwatch</span>
+                    <span>Safety</span>
+                    <span>Health</span>
+
+                </div>
+
+                <a
+                    href="https://qazishirin00.wixsite.com/aurex-ai-1"
+                    target="_blank"
+                    class="project-btn">
+
+                    View Project ↗
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="money-manager">
+
+        <div class="money-container">
+
+
+            <div class="money-back">
+
+                <button onclick="closeMoneyManager()">
+                    ← Back to Portfolio
+                </button>
+
+            </div>
+
+
+            <div class="money-header">
+
+                <h2>
+                    Money<span>.</span>
+                </h2>
+
+                <p>
+                    Spend smart. Save more.
+                </p>
+
+                <p
+                    id="moneyDate"
+                    class="money-date">
+                </p>
+
+            </div>
+
+
+            <!-- SET POCKET MONEY -->
+
+            <div class="money-card">
+
+                <h3>
+                    Set Your Pocket Money
+                </h3>
+
+                <input
+                    type="number"
+                    id="pocketMoney"
+                    class="money-input"
+                    placeholder="Enter your pocket money">
+
+                <button
+                    class="money-button"
+                    onclick="setPocketMoney()">
+
+                    Set Money
+
+                </button>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="money-summary">
+
+
+                <div class="money-summary-card">
+
+                    <p>
+                        Total Money
+                    </p>
+
+                    <h3 id="totalMoney">
+                        ₹0
+                    </h3>
+
+                </div>
+
+
+                <div class="money-summary-card">
+
+                    <p>
+                        Total Spent
+                    </p>
+
+                    <h3 id="totalSpent">
+                        ₹0
+                    </h3>
+
+                </div>
+
+
+                <div class="money-summary-card">
+
+                    <p>
+                        Money Left
+                    </p>
+
+                    <h3 id="moneyLeft">
+                        ₹0
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROGRESS -->
+
+            <div class="money-card">
+
+                <h3>
+                    Spending Progress
+                </h3>
+
+                <div class="progress-container">
+
+                    <div
+                        class="progress-bar"
+                        id="progressBar">
+                    </div>
+
+                </div>
+
+                <p id="moneyStatus">
+                    Set your pocket money to start tracking.
+                </p>
+
+            </div>
+
+
+            <!-- ADD EXPENSE -->
+
+            <div class="money-card">
+
+                <h3>
+                    Add Expense
+                </h3>
+
+                <div class="expense-form">
+
+                    <input
+                        type="text"
+                        id="expenseName"
+                        class="money-input"
+                        placeholder="Expense name">
+
+
+                    <input
+                        type="number"
+                        id="expenseAmount"
+                        class="money-input"
+                        placeholder="Amount">
+
+
+                    <select
+                        id="expenseCategory"
+                        class="money-select">
+
+                        <option value="🍔 Food">
+                            🍔 Food
+                        </option>
+
+                        <option value="🚌 Transport">
+                            🚌 Transport
+                        </option>
+
+                        <option value="🛍️ Shopping">
+                            🛍️ Shopping
+                        </option>
+
+                        <option value="🎮 Entertainment">
+                            🎮 Entertainment
+                        </option>
+
+                        <option value="📚 Education">
+                            📚 Education
+                        </option>
+
+                        <option value="💡 Bills">
+                            💡 Bills
+                        </option>
+
+                        <option value="📦 Other">
+                            📦 Other
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        class="money-button"
+                        onclick="addExpense()">
+
+                        Add
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPENSE LIST -->
+
+            <div class="money-card">
+
+                <h3>
+                    Recent Expenses
+                </h3>
+
+                <ul
+                    class="expense-list"
+                    id="expenseList">
+
+                </ul>
+
+            </div>
+
+
+            <!-- ADVICE -->
+
+            <div class="money-card money-advice">
+
+                <h3>
+                    Smart Spending Advice
+                </h3>
+
+                <p id="adviceText">
+
+                    Set your pocket money and start adding
+                    expenses to receive personalized spending advice.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================= -->
+
+    <section class="contact" id="contact">
+
+        <div class="contact-content">
+
+            <h2>
+                Let's Connect.
+            </h2>
+
+            <p>
+                Have a project, idea or opportunity?
+                Feel free to get in touch with me.
+            </p>
+
+        </div>
+
+
+        <div class="contact-card">
+
+            <form>
+
+                <label>
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Your Name">
+
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    placeholder="Your Email">
+
+
+                <label>
+                    Message
+                </label>
+
+                <textarea
+                    placeholder="Your Message">
+                </textarea>
+
+
+                <button
+                    type="button"
+                    onclick="alert('Thank you! Your message has been received.')">
+
+                    Send Message
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Qazi Shirin. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script>
+
+        /* =========================
+           MONEY MANAGER DATA
+        ========================= */
+
+        let pocketMoney =
+            Number(
+                localStorage.getItem("pocketMoney")
+            ) || 0;
+
+
+        let expenses =
+            JSON.parse(
+                localStorage.getItem("expenses")
+            ) || [];
+
+
+        /* =========================
+           OPEN MONEY MANAGER
+        ========================= */
+
+        function openMoneyManager() {
+
+            document
+                .getElementById("money-manager")
+                .classList.add("active");
+
+
+            document
+                .querySelector(".projects")
+                .style.display = "none";
+
+
+            document
+                .querySelector(".hero")
+                .style.display = "none";
+
+
+            document
+                .querySelector(".about")
+                .style.display = "none";
+
+
+            document
+                .querySelector(".skills")
+                .style.display = "none";
+
+
+            document
+                .querySelector(".contact")
+                .style.display = "none";
+
+
+            document
+                .querySelector("footer")
+                .style.display = "none";
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+
+            updateDashboard();
+        }
+
+
+        /* =========================
+           CLOSE MONEY MANAGER
+        ========================= */
+
+        function closeMoneyManager() {
+
+            document
+                .getElementById("money-manager")
+                .classList.remove("active");
+
+
+            document
+                .querySelector(".projects")
+                .style.display = "block";
+
+
+            document
+                .querySelector(".hero")
+                .style.display = "flex";
+
+
+            document
+                .querySelector(".about")
+                .style.display = "block";
+
+
+            document
+                .querySelector(".skills")
+                .style.display = "block";
+
+
+            document
+                .querySelector(".contact")
+                .style.display = "flex";
+
+
+            document
+                .querySelector("footer")
+                .style.display = "block";
+
+
+            document
+                .getElementById("projects")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+
+
+        /* =========================
+           SAVE DATA
+        ========================= */
+
+        function saveData() {
+
+            localStorage.setItem(
+                "pocketMoney",
+                pocketMoney
+            );
+
+
+            localStorage.setItem(
+                "expenses",
+                JSON.stringify(expenses)
+            );
+
+        }
+
+
+        /* =========================
+           SET POCKET MONEY
+        ========================= */
+
+        function setPocketMoney() {
+
+            const input =
+                document.getElementById(
+                    "pocketMoney"
+                );
+
+
+            const amount =
+                Number(input.value);
+
+
+            if (amount <= 0) {
+
+                alert(
+                    "Please enter a valid amount."
+                );
+
+                return;
+            }
+
+
+            pocketMoney = amount;
+
+
+            saveData();
+
+
+            input.value = "";
+
+
+            updateDashboard();
+
+        }
+
+
+        /* =========================
+           ADD EXPENSE
+        ========================= */
+
+        function addExpense() {
+
+            const name =
+                document
+                    .getElementById(
+                        "expenseName"
+                    )
+                    .value
+                    .trim();
+
+
+            const amount =
+                Number(
+                    document
+                        .getElementById(
+                            "expenseAmount"
+                        )
+                        .value
+                );
+
+
+            const category =
+                document
+                    .getElementById(
+                        "expenseCategory"
+                    )
+                    .value;
+
+
+            if (!name || amount <= 0) {
+
+                alert(
+                    "Please enter a valid expense."
+                );
+
+                return;
+            }
+
+
+            if (pocketMoney === 0) {
+
+                alert(
+                    "Please set your pocket money first."
+                );
+
+                return;
+            }
+
+
+            const totalSpent =
+                getTotalSpent();
+
+
+            if (
+                totalSpent + amount >
+                pocketMoney
+            ) {
+
+                alert(
+                    "This expense is more than your remaining money."
+                );
+
+                return;
+            }
+
+
+            expenses.push({
+
+                name: name,
+
+                amount: amount,
+
+                category: category
+
+            });
+
+
+            saveData();
+
+
+            document
+                .getElementById(
+                    "expenseName"
+                )
+                .value = "";
+
+
+            document
+                .getElementById(
+                    "expenseAmount"
+                )
+                .value = "";
+
+
+            updateDashboard();
+
+        }
+
+
+        /* =========================
+           TOTAL SPENT
+        ========================= */
+
+        function getTotalSpent() {
+
+            return expenses.reduce(
+
+                (total, expense) =>
+
+                    total +
+                    Number(expense.amount),
+
+                0
+
+            );
+
+        }
+
+
+        /* =========================
+           DELETE EXPENSE
+        ========================= */
+
+        function deleteExpense(index) {
+
+            expenses.splice(
+                index,
+                1
+            );
+
+
+            saveData();
+
+
+            updateDashboard();
+
+        }
+
+
+        /* =========================
+           UPDATE DASHBOARD
+        ========================= */
+
+        function updateDashboard() {
+
+            const totalSpent =
+                getTotalSpent();
+
+
+            const moneyLeft =
+                pocketMoney -
+                totalSpent;
+
+
+            document
+                .getElementById(
+                    "totalMoney"
+                )
+                .textContent =
+                "₹" +
+                pocketMoney;
+
+
+            document
+                .getElementById(
+                    "totalSpent"
+                )
+                .textContent =
+                "₹" +
+                totalSpent;
+
+
+            document
+                .getElementById(
+                    "moneyLeft"
+                )
+                .textContent =
+                "₹" +
+                Math.max(
+                    moneyLeft,
+                    0
+                );
+
+
+            let percentage = 0;
+
+
+            if (pocketMoney > 0) {
+
+                percentage =
+                    (
+                        totalSpent /
+                        pocketMoney
+                    ) * 100;
+
+            }
+
+
+            percentage =
+                Math.min(
+                    percentage,
+                    100
+                );
+
+
+            document
+                .getElementById(
+                    "progressBar"
+                )
+                .style.width =
+                percentage +
+                "%";
+
+
+            updateStatus(
+                percentage
+            );
+
+
+            updateAdvice(
+                percentage
+            );
+
+
+            displayExpenses();
+
+        }
+
+
+        /* =========================
+           UPDATE STATUS
+        ========================= */
+
+        function updateStatus(percentage) {
+
+            const status =
+                document.getElementById(
+                    "moneyStatus"
+                );
+
+
+            if (pocketMoney === 0) {
+
+                status.textContent =
+                    "Set your pocket money to start tracking.";
+
+            }
+
+            else if (percentage < 30) {
+
+                status.textContent =
+                    "You're spending safely. Keep it up!";
+
+            }
+
+            else if (percentage < 60) {
+
+                status.textContent =
+                    "Your spending is increasing. Keep an eye on it.";
+
+            }
+
+            else if (percentage < 80) {
+
+                status.textContent =
+                    "You're using a large part of your money.";
+
+            }
+
+            else if (percentage < 100) {
+
+                status.textContent =
+                    "Careful! You're almost out of money.";
+
+            }
+
+            else {
+
+                status.textContent =
+                    "You've used all your pocket money.";
+
+            }
+
+        }
+
+
+        /* =========================
+           UPDATE ADVICE
+        ========================= */
+
+        function updateAdvice(percentage) {
+
+            const advice =
+                document.getElementById(
+                    "adviceText"
+                );
+
+
+            if (pocketMoney === 0) {
+
+                advice.textContent =
+                    "Set your pocket money and start adding expenses to receive personalized spending advice.";
+
+            }
+
+            else if (percentage < 30) {
+
+                advice.textContent =
+                    "You're doing well. Try saving at least 20% of your money for emergencies or future needs.";
+
+            }
+
+            else if (percentage < 60) {
+
+                advice.textContent =
+                    "Your spending is moderate. Try reducing unnecessary snacks, drinks, and random shopping.";
+
+            }
+
+            else if (percentage < 80) {
+
+                advice.textContent =
+                    "You're spending quite a lot. Consider cutting down on eating outside, shopping, and entertainment.";
+
+            }
+
+            else if (percentage < 100) {
+
+                advice.textContent =
+                    "You're close to running out of money. Stop unnecessary spending and focus only on important requirements.";
+
+            }
+
+            else {
+
+                advice.textContent =
+                    "You've spent all your pocket money. Avoid non-essential spending until you have more money.";
+
+            }
+
+        }
+
+
+        /* =========================
+           DISPLAY EXPENSES
+        ========================= */
+
+        function displayExpenses() {
+
+            const list =
+                document.getElementById(
+                    "expenseList"
+                );
+
+
+            list.innerHTML = "";
+
+
+            if (expenses.length === 0) {
+
+                list.innerHTML =
+                    '<li style="color:#766B7A;">No expenses added yet.</li>';
+
+                return;
+            }
+
+
+            expenses.forEach(
+                (expense, index) => {
+
+                    const item =
+                        document.createElement(
+                            "li"
+                        );
+
+
+                    item.className =
+                        "expense-item";
+
+
+                    item.innerHTML = `
+
+                        <div>
+
+                            <div class="expense-name">
+                                ${expense.name}
+                            </div>
+
+                            <div class="expense-category">
+                                ${expense.category}
+                            </div>
+
+                        </div>
+
+
+                        <div class="expense-right">
+
+                            <span class="expense-amount">
+                                ₹${expense.amount}
+                            </span>
+
+                            <button
+                                class="delete-btn"
+                                onclick="deleteExpense(${index})">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    list.appendChild(item);
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           DATE
+        ========================= */
+
+        document
+            .getElementById("moneyDate")
+            .textContent =
+            new Date().toLocaleDateString(
+                "en-IN",
+                {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
+
+
+        /* =========================
+           INITIALIZE
+        ========================= */
+
+        updateDashboard();
+
+    </script>
+
+</body>
+
+</html>
+```
